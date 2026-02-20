@@ -982,6 +982,34 @@ ol li strong {
   color: var(--color-plum);
 }
 
+/* --------------------------------------------
+   Video Container (Responsive YouTube Embeds)
+   -------------------------------------------- */
+.video-section {
+  text-align: center;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto var(--space-lg);
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 /* Print */
 @media print {
   body::before,
@@ -994,3 +1022,5 @@ ol li strong {
     break-inside: avoid;
   }
 }
+
+
