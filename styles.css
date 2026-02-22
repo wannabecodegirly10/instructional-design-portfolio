@@ -1010,6 +1010,25 @@ ol li strong {
   border: none;
 }
 
+.video-container-card {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+
+.video-container-card iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 /* Print */
 @media print {
   body::before,
@@ -1022,5 +1041,3 @@ ol li strong {
     break-inside: avoid;
   }
 }
-
-
