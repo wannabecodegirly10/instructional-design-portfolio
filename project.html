@@ -10,16 +10,19 @@
   <header class="site-header">
     <div class="container">
       <h1 class="site-title"><a href="index.html">Instructional Design Portfolio</a></h1>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav aria-label="Main navigation">
-        <ul>
+        <ul id="nav-menu">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="project.html" class="current">Project Overview</a></li>
           <li><a href="design.html">Design &amp; Development</a></li>
           <li><a href="resources.html">Resources</a></li>
           <li><a href="portfolio.html">Portfolio &amp; Work Archive</a></li>
-          <!-- <li><a href="materials.html">Learning Materials</a></li> -->
-          <!-- <li><a href="reflection.html">Reflection &amp; Evaluation</a></li> -->
         </ul>
       </nav>
     </div>
@@ -31,8 +34,8 @@
     <section class="feature-card">
       <h2>Interactive Quiz</h2>
       <p><a href="https://www.lsu.edu/registrar/academics/academic-calendars/" target="_blank">LSU Online Academic Calendar | Registrar</a></p>
-      <div class="embed-container">
-        <iframe src="https://h5p.org/h5p/embed/1557062" width="1090" height="425" frameborder="0" allowfullscreen="allowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" title="Spring 2 2026 Registration Quiz"></iframe>
+      <div class="quiz-embed">
+        <iframe src="https://h5p.org/h5p/embed/1557062" frameborder="0" allowfullscreen="allowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" title="Spring 2 2026 Registration Quiz"></iframe>
         <script src="https://h5p.org/sites/all/modules/h5p/library/js/h5p-resizer.js" charset="UTF-8"></script>
       </div>
       <p><a href="spring-2-2026-registration-quiz-1560954.h5p" download class="btn btn-secondary">Download H5P File</a></p>
@@ -80,5 +83,22 @@
       <p><a href="about.html">About the Designer</a> · <a href="resources.html">Resources &amp; References</a></p>
     </div>
   </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.site-header')) {
+        navMenu.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
 </body>
 </html>
