@@ -190,6 +190,22 @@
         content.classList.toggle('collapsed');
       });
     });
+
+    // Auto-expand section if URL contains anchor to an element inside it
+    if (window.location.hash) {
+      const targetElement = document.querySelector(window.location.hash);
+      if (targetElement) {
+        const collapsibleContent = targetElement.closest('.collapsible-content');
+        if (collapsibleContent && collapsibleContent.classList.contains('collapsed')) {
+          collapsibleContent.classList.remove('collapsed');
+          const header = collapsibleContent.previousElementSibling;
+          if (header && header.classList.contains('collapsible-header')) {
+            header.setAttribute('aria-expanded', 'true');
+          }
+        }
+        targetElement.scrollIntoView();
+      }
+    }
   </script>
 </body>
 </html>
