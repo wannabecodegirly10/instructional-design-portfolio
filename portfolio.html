@@ -214,9 +214,16 @@
     if (window.location.hash) {
       const targetElement = document.querySelector(window.location.hash);
       if (targetElement) {
-        const collapsibleContent = targetElement.closest('.collapsible-content');
-        if (collapsibleContent && collapsibleContent.classList.contains('collapsed')) {
-          collapsibleContent.classList.remove('collapsed');
+        let collapsibleContent = targetElement.closest('.collapsible-content');
+        // Handle direct links to collapsible sections (e.g., #elrc7535)
+        if (!collapsibleContent && targetElement.classList.contains('collapsible-section')) {
+          collapsibleContent = targetElement.querySelector('.collapsible-content');
+        }
+
+        if (collapsibleContent) {
+          if (collapsibleContent.classList.contains('collapsed')) {
+            collapsibleContent.classList.remove('collapsed');
+          }
           const header = collapsibleContent.previousElementSibling;
           if (header && header.classList.contains('collapsible-header')) {
             header.setAttribute('aria-expanded', 'true');
