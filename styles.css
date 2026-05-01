@@ -1160,6 +1160,11 @@ main:not(:has(.hero-banner)) h2::after {
   color: var(--text-muted);
 }
 
+.card-standards-list {
+  margin-top: var(--space-lg);
+  margin-bottom: 0;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: 1fr;
