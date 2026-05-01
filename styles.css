@@ -1166,6 +1166,10 @@ main:not(:has(.hero-banner)) h2::after {
   gap: var(--space-md);
 }
 
+.card--full-width {
+  grid-column: 1 / -1;
+}
+
 @media (min-width: 600px) {
   .card-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
