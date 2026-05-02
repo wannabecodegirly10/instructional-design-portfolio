@@ -1370,6 +1370,14 @@ main ol a {
 /* --------------------------------------------
    Collapsible Sections
    -------------------------------------------- */
+.capstone-reflection-collapsible {
+  margin-bottom: var(--space-lg);
+}
+
+.capstone-reflection-collapsible > .collapsible-header {
+  margin-bottom: 0;
+}
+
 .collapsible-section {
   margin-bottom: var(--space-lg);
 }

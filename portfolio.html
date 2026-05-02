@@ -102,8 +102,13 @@
         <span class="collapse-icon" aria-hidden="true"></span>
       </h2>
       <div class="collapsible-content collapsed">
+        <div class="capstone-reflection-collapsible">
+          <h3 class="collapsible-header" aria-expanded="false">
+            Capstone &amp; Reflection
+            <span class="collapse-icon" aria-hidden="true"></span>
+          </h3>
+          <div class="collapsible-content collapsed">
         <article class="card card--full-width" id="capstone-reflection">
-          <h3>Capstone &amp; Reflection</h3>
           <p>This course and the associated assignments and projects have expanded my knowledge of learning design, facets of digital environments, instructional design frameworks, emerging technologies including AI, data privacy, and the importance of effective, structured peer feedback. While I am not currently an educator or learning designer, taking this course following Instructional Design has increased my confidence in applying the skills I have learned in my current role and work. This course, along with the supplemental Coursera Google and Adobe courses and modules, enhanced my learning experience.</p>
           <p>Beginning with our first assignment, I chose to analyze the Coursera course AI Foundations: Prompt Engineering with ChatGPT offered by Arizona State University to identify opportunities for equitable, accessible online learning. I was able to look more deeply at how digital environments work, identify the pros and cons of those environments, and offer feedback to make them better and align to the following standards: UDL: Engagement, Action &amp; Expression, QM: Accessibility &amp; Usability, the Accessibility Layer framework, and the WAVE Web Accessibility Evaluation Tool (CO1). The analysis and learning about what to look for gave me insight into scrutinizing the digital tools currently used by my institution for students, as well as the tools or vendors I will present to my leadership for review.</p>
           <p>As I prepared to work on my assignment for Foundations of Instructional Design and UDL, I knew I wanted to find a course that would allow me to incorporate Backward Design, one of the frameworks that resonated with me from my Instructional Design course. Being able to incorporate it into the development of an inclusive online course using that framework was very rewarding (CO2). &ldquo;Starting with the end in mind&rdquo; makes sense to me. Having a clear understanding of the concrete concepts and knowledge students should take away from the course aligns with my general thinking and approach to learning, even if I was not able to articulate it a year ago. Once I determined what I wanted the students to take away from the course/module, I could think through the assessments and learning activities aligned with the learning outcomes.</p>
@@ -113,6 +118,8 @@
           <p>One aspect of the course that I found surprisingly valuable was the peer feedback. Having a structured approach and prompts to help facilitate thoughtful, respectful, and helpful feedback in the service of helping my peers improve my work and vice versa was truly engaging. I felt as though everyone had a genuine interest in seeing one another succeed and make our work better. While at times it felt overwhelming, access to Coursera courses and certificates provides additional opportunities to build skills and ongoing professional development (CO5). Overall, this course, peer feedback, and assignments that I poured time and intention into will help me become an intentional designer with a respect for Universal Design for Learning.</p>
           <p><a href="#elrc7535">View Capstone &amp; Reflection Highlights</a></p>
         </article>
+          </div>
+        </div>
         <div class="card-grid">
         <article class="card">
           <h3>Analyzing Digital Learning Environments</h3>
@@ -290,23 +297,32 @@
       });
     });
 
-    // Auto-expand section if URL contains anchor to an element inside it
+    // Auto-expand section(s) if URL contains anchor to an element inside collapsible panels
     if (window.location.hash) {
       const targetElement = document.querySelector(window.location.hash);
       if (targetElement) {
-        let collapsibleContent = targetElement.closest('.collapsible-content');
-        // Handle direct links to collapsible sections (e.g., #elrc7535)
-        if (!collapsibleContent && targetElement.classList.contains('collapsible-section')) {
-          collapsibleContent = targetElement.querySelector('.collapsible-content');
-        }
-
-        if (collapsibleContent) {
-          if (collapsibleContent.classList.contains('collapsed')) {
+        if (targetElement.classList.contains('collapsible-section')) {
+          const collapsibleContent = targetElement.querySelector('.collapsible-content');
+          if (collapsibleContent && collapsibleContent.classList.contains('collapsed')) {
             collapsibleContent.classList.remove('collapsed');
+            const header = collapsibleContent.previousElementSibling;
+            if (header && header.classList.contains('collapsible-header')) {
+              header.setAttribute('aria-expanded', 'true');
+            }
           }
-          const header = collapsibleContent.previousElementSibling;
-          if (header && header.classList.contains('collapsible-header')) {
-            header.setAttribute('aria-expanded', 'true');
+        } else {
+          let node = targetElement;
+          while (node) {
+            const panel = node.closest('.collapsible-content');
+            if (!panel) break;
+            if (panel.classList.contains('collapsed')) {
+              panel.classList.remove('collapsed');
+              const header = panel.previousElementSibling;
+              if (header && header.classList.contains('collapsible-header')) {
+                header.setAttribute('aria-expanded', 'true');
+              }
+            }
+            node = panel.parentElement;
           }
         }
         targetElement.scrollIntoView();
