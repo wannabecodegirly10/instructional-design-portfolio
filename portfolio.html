@@ -30,7 +30,20 @@
 
   <main>
     <h1>Portfolio &amp; Work Archive</h1>
-    <p>Instructional Design projects: Spring 1 2026 ELRC 7503E: Instructional Design Spring 2026 with Dr. Jennifer Qian</p>
+    <p>Educational Technology projects for Graduate Certificate in Educational Technology.</p>
+
+    <section id="elrc7500" class="collapsible-section">
+      <h2 class="collapsible-header" aria-expanded="false">
+        ELRC 7500
+        <span class="collapse-icon" aria-hidden="true"></span>
+      </h2>
+      <div class="card-grid collapsible-content collapsed">
+        <article class="card" id="current-thinking-tech-leadership">
+          <h3>Current Thinking on Tech Leadership in Educaction</h3>
+          <p><em>Content coming soon.</em></p>
+        </article>
+      </div>
+    </section>
 
     <section id="elrc7505" class="collapsible-section">
       <h2 class="collapsible-header" aria-expanded="false">
@@ -117,6 +130,7 @@
           <p>The last two assignments of the course, Assessment Strategies and Data-Informed Design and Interactive Media and Collaborative Selection, were closely related. Using tools and considering student privacy when creating a dashboard with meaningful but limited information ensures that student information is protected. In the final assignment, incorporating summative and formative assessments while using additional emerging technology tools, H5P and Padlet, brought together all aspects of my lesson and the redesign.</p>
           <p>One aspect of the course that I found surprisingly valuable was the peer feedback. Having a structured approach and prompts to help facilitate thoughtful, respectful, and helpful feedback in the service of helping my peers improve my work and vice versa was truly engaging. I felt as though everyone had a genuine interest in seeing one another succeed and make our work better. While at times it felt overwhelming, access to Coursera courses and certificates provides additional opportunities to build skills and ongoing professional development (CO5). Overall, this course, peer feedback, and assignments that I poured time and intention into will help me become an intentional designer with a respect for Universal Design for Learning.</p>
           <p><a href="#elrc7535">View Capstone &amp; Reflection Highlights</a></p>
+          <p class="capstone-direct-link"><a id="capstone-reflection-open-link" href="#capstone-reflection">Direct link (opens expanded)</a></p>
         </article>
           </div>
         </div>
@@ -297,36 +311,51 @@
       });
     });
 
-    // Auto-expand section(s) if URL contains anchor to an element inside collapsible panels
-    if (window.location.hash) {
-      const targetElement = document.querySelector(window.location.hash);
-      if (targetElement) {
-        if (targetElement.classList.contains('collapsible-section')) {
-          const collapsibleContent = targetElement.querySelector('.collapsible-content');
-          if (collapsibleContent && collapsibleContent.classList.contains('collapsed')) {
-            collapsibleContent.classList.remove('collapsed');
-            const header = collapsibleContent.previousElementSibling;
-            if (header && header.classList.contains('collapsible-header')) {
-              header.setAttribute('aria-expanded', 'true');
-            }
-          }
-        } else {
-          let node = targetElement;
-          while (node) {
-            const panel = node.closest('.collapsible-content');
-            if (!panel) break;
-            if (panel.classList.contains('collapsed')) {
-              panel.classList.remove('collapsed');
-              const header = panel.previousElementSibling;
-              if (header && header.classList.contains('collapsible-header')) {
-                header.setAttribute('aria-expanded', 'true');
-              }
-            }
-            node = panel.parentElement;
+    function expandCollapsiblesToShow(targetElement) {
+      if (!targetElement) return;
+      if (targetElement.classList.contains('collapsible-section')) {
+        const collapsibleContent = targetElement.querySelector('.collapsible-content');
+        if (collapsibleContent && collapsibleContent.classList.contains('collapsed')) {
+          collapsibleContent.classList.remove('collapsed');
+          const header = collapsibleContent.previousElementSibling;
+          if (header && header.classList.contains('collapsible-header')) {
+            header.setAttribute('aria-expanded', 'true');
           }
         }
-        targetElement.scrollIntoView();
+        return;
       }
+      let node = targetElement;
+      while (node) {
+        const panel = node.closest('.collapsible-content');
+        if (!panel) break;
+        if (panel.classList.contains('collapsed')) {
+          panel.classList.remove('collapsed');
+          const header = panel.previousElementSibling;
+          if (header && header.classList.contains('collapsible-header')) {
+            header.setAttribute('aria-expanded', 'true');
+          }
+        }
+        node = panel.parentElement;
+      }
+    }
+
+    function applyDeepLinkFromHash() {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const targetElement = document.querySelector(hash);
+      if (!targetElement) return;
+      expandCollapsiblesToShow(targetElement);
+      targetElement.scrollIntoView();
+    }
+
+    applyDeepLinkFromHash();
+    window.addEventListener('hashchange', applyDeepLinkFromHash);
+
+    const capstoneOpenLink = document.getElementById('capstone-reflection-open-link');
+    if (capstoneOpenLink) {
+      const capstoneUrl = new URL(window.location.href);
+      capstoneUrl.hash = '#capstone-reflection';
+      capstoneOpenLink.href = capstoneUrl.toString();
     }
   </script>
 </body>
