@@ -32,7 +32,7 @@
     <h1>Portfolio &amp; Work Archive</h1>
     <p>Educational Technology projects for Graduate Certificate in Educational Technology.</p>
 
-    <section id="elrc7500" class="collapsible-section">
+    <section id="technology-leadership-in-education" class="collapsible-section">
       <h2 class="collapsible-header" aria-expanded="false">
         Technology Leadership in Education
         <span class="collapse-icon" aria-hidden="true"></span>
@@ -43,6 +43,7 @@
           <div class="video-container-card">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/eI4LL9PAnZI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
+          <p class="capstone-direct-link"><a id="tech-leadership-education-open-link" href="https://wannabecodegirly10.github.io/instructional-design-portfolio/portfolio.html#technology-leadership-in-education">Direct link (opens expanded)</a></p>
         </article>
       </div>
     </section>
@@ -132,7 +133,7 @@
           <p>The last two assignments of the course, Assessment Strategies and Data-Informed Design and Interactive Media and Collaborative Selection, were closely related. Using tools and considering student privacy when creating a dashboard with meaningful but limited information ensures that student information is protected. In the final assignment, incorporating summative and formative assessments while using additional emerging technology tools, H5P and Padlet, brought together all aspects of my lesson and the redesign.</p>
           <p>One aspect of the course that I found surprisingly valuable was the peer feedback. Having a structured approach and prompts to help facilitate thoughtful, respectful, and helpful feedback in the service of helping my peers improve my work and vice versa was truly engaging. I felt as though everyone had a genuine interest in seeing one another succeed and make our work better. While at times it felt overwhelming, access to Coursera courses and certificates provides additional opportunities to build skills and ongoing professional development (CO5). Overall, this course, peer feedback, and assignments that I poured time and intention into will help me become an intentional designer with a respect for Universal Design for Learning.</p>
           <p><a href="#elrc7535">View Capstone &amp; Reflection Highlights</a></p>
-          <p class="capstone-direct-link"><a id="capstone-reflection-open-link" href="#capstone-reflection">Direct link (opens expanded)</a></p>
+          <p class="capstone-direct-link"><a id="capstone-reflection-open-link" href="https://wannabecodegirly10.github.io/instructional-design-portfolio/portfolio.html#capstone-reflection">Direct link (opens expanded)</a></p>
         </article>
           </div>
         </div>
@@ -341,24 +342,48 @@
       }
     }
 
+    // Live site: https://wannabecodegirly10.github.io/instructional-design-portfolio/
+    // Deep links (portfolio.html): #technology-leadership-in-education (section),
+    // #current-thinking-tech-leadership (card), #elrc7500 (legacy alias), etc.
+    const SITE_BASE_URL = 'https://wannabecodegirly10.github.io/instructional-design-portfolio';
+    const DEEP_LINK_HASH_ALIASES = {
+      '#elrc7500': '#technology-leadership-in-education',
+    };
+
+    function resolveDeepLinkHash(hash) {
+      return DEEP_LINK_HASH_ALIASES[hash] || hash;
+    }
+
+    function scrollToDeepLinkTarget(targetElement) {
+      window.requestAnimationFrame(() => {
+        setTimeout(() => {
+          targetElement.scrollIntoView({ block: 'start' });
+        }, 420);
+      });
+    }
+
     function applyDeepLinkFromHash() {
       const hash = window.location.hash;
       if (!hash) return;
-      const targetElement = document.querySelector(hash);
+      const resolvedHash = resolveDeepLinkHash(hash);
+      const targetElement = document.querySelector(resolvedHash);
       if (!targetElement) return;
       expandCollapsiblesToShow(targetElement);
-      targetElement.scrollIntoView();
+      scrollToDeepLinkTarget(targetElement);
     }
 
     applyDeepLinkFromHash();
     window.addEventListener('hashchange', applyDeepLinkFromHash);
 
-    const capstoneOpenLink = document.getElementById('capstone-reflection-open-link');
-    if (capstoneOpenLink) {
-      const capstoneUrl = new URL(window.location.href);
-      capstoneUrl.hash = '#capstone-reflection';
-      capstoneOpenLink.href = capstoneUrl.toString();
+    function setDirectOpenLink(anchorId, hash) {
+      const link = document.getElementById(anchorId);
+      if (!link) return;
+      const page = window.location.pathname.split('/').pop() || 'portfolio.html';
+      link.href = `${SITE_BASE_URL}/${page}${hash}`;
     }
+
+    setDirectOpenLink('tech-leadership-education-open-link', '#technology-leadership-in-education');
+    setDirectOpenLink('capstone-reflection-open-link', '#capstone-reflection');
   </script>
 </body>
 </html>
