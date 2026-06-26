@@ -1242,39 +1242,76 @@ ol li strong {
   width: 100%;
   max-width: 800px;
   margin: 0 auto var(--space-lg);
-  padding-bottom: 56.25%;
-  height: 0;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
 
+@supports not (aspect-ratio: 16 / 9) {
+  .video-container {
+    aspect-ratio: auto;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+}
+
 .video-container iframe {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   border: none;
 }
 
 .video-container-card {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
-  height: 0;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--radius-md);
   margin-bottom: var(--space-md);
 }
 
-.video-container-card iframe {
+@supports not (aspect-ratio: 16 / 9) {
+  .video-container-card {
+    aspect-ratio: auto;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+}
+
+.video-container-card iframe,
+.video-container-card video {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   border: none;
+  object-fit: contain;
+  background: #000;
+}
+
+/* H5P and other dynamic-height embeds (uses h5p-resizer.js) */
+.video-container-h5p {
+  width: 100%;
+  max-width: 100%;
+  min-height: 280px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+
+.video-container-h5p iframe {
+  width: 100%;
+  max-width: 100%;
+  min-height: 280px;
+  height: auto;
+  border: none;
+  display: block;
 }
 
 /* Interactive Quiz */
@@ -1337,6 +1374,46 @@ ol li strong {
 @media (min-width: 768px) {
   .padlet-embed iframe {
     max-height: 608px;
+  }
+}
+
+@media (max-width: 767px) {
+  main:not(:has(.hero-banner)) {
+    overflow-x: clip;
+  }
+
+  .card-grid > * {
+    min-width: 0;
+  }
+
+  .card {
+    padding: var(--space-md);
+  }
+
+  .video-container,
+  .video-container-card,
+  .video-container-h5p,
+  .embed-container {
+    margin-bottom: var(--space-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  .video-container-h5p iframe {
+    min-height: 240px;
+  }
+
+  .quiz-embed iframe {
+    min-height: 260px;
+  }
+
+  .padlet-embed iframe {
+    height: 420px !important;
+    max-height: 420px;
+  }
+
+  .collapsible-content:not(.collapsed) .video-container-card,
+  .collapsible-content:not(.collapsed) .video-container-h5p {
+    margin-top: var(--space-xs);
   }
 }
 
