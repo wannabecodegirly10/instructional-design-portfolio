@@ -1189,11 +1189,28 @@ main:not(:has(.hero-banner)) h2::after {
 /* Blog-style learning log */
 .blog-intro {
   margin-top: var(--space-md);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   font-size: 1.0625rem;
   line-height: 1.65;
   color: var(--text-muted);
   max-width: 65ch;
+}
+
+.blog-intro-list {
+  margin: 0 0 var(--space-md);
+  padding-left: 1.5rem;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  max-width: 65ch;
+}
+
+.blog-intro-list li {
+  margin-bottom: var(--space-sm);
+}
+
+.blog-intro-list li:last-child {
+  margin-bottom: 0;
 }
 
 .blog-entries {
