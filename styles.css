@@ -1305,6 +1305,22 @@ ul li::marker {
   color: var(--color-sage);
 }
 
+/* APA-style reference lists: no bullets, hanging indent */
+.references-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.references-list li {
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: var(--space-sm);
+}
+
+.references-list li:last-child {
+  margin-bottom: 0;
+}
+
 /* Strong text in lists */
 ul li strong,
 ol li strong {
