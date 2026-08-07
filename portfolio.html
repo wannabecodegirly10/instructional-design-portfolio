@@ -548,6 +548,39 @@
       });
     });
 
+    // "Continue reading" toggle for long blog posts
+    const BLOG_TRUNCATE_THRESHOLD_PX = 460; // only truncate posts taller than this
+    document.querySelectorAll('.blog-entry').forEach(entry => {
+      // Wrap the post content so the fade/clip applies to the body, not the button
+      const body = document.createElement('div');
+      body.className = 'blog-entry__body';
+      while (entry.firstChild) {
+        body.appendChild(entry.firstChild);
+      }
+      entry.appendChild(body);
+
+      // Skip short posts - nothing to truncate
+      if (body.scrollHeight <= BLOG_TRUNCATE_THRESHOLD_PX) return;
+
+      body.classList.add('blog-entry__body--collapsed');
+
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'blog-read-more';
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = 'Continue reading';
+      entry.appendChild(toggle);
+
+      toggle.addEventListener('click', () => {
+        const collapsed = body.classList.toggle('blog-entry__body--collapsed');
+        toggle.setAttribute('aria-expanded', String(!collapsed));
+        toggle.textContent = collapsed ? 'Continue reading' : 'Show less';
+        if (collapsed) {
+          entry.scrollIntoView({ block: 'nearest' });
+        }
+      });
+    });
+
     function expandCollapsiblesToShow(targetElement) {
       if (!targetElement) return;
       if (targetElement.classList.contains('collapsible-section')) {
